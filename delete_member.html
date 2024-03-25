@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SchedSpace | Delete Member</title>
+    <link rel="shortcut icon" href="calendar-week-fill.svg" type="image/x-icon">
+    <style>
+        /* Styling for header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #31363F;
+            z-index: 2; /* Ensures header is on top of sidebar */
+            font-size: 56px;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            color: #76ABAE;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #EEEEEE;
+            position: relative; /* Set body position to relative for absolute positioning */
+        }
+
+
+        /* Styling for user dropdown */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            font-size: 20px;
+            color: white;
+            font-family: Arial, sans-serif;
+            font-weight: 50;
+        }
+        
+        
+        /* Styling for sidebar */
+        .sidebar {
+            width: 200px;
+            height: 100vh; /* Set height to 100% of the viewport height */
+            background-color: #333;
+            color: #fff;
+            padding-top: 100px;
+            position: fixed;
+            left: 0;
+            top: 20; /* Adjust the top position to align with the header */
+            z-index: 1; /* Ensure sidebar is behind the header */
+            font-family: Arial, Helvetica, sans-serif;
+            overflow-y: auto; /* Enable scrolling if content exceeds the height */
+        }
+        
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .sidebar ul li {
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        
+        .sidebar ul li:hover {
+            background-color: #555;
+        }
+        
+        /* Main content area */
+        .main-content {
+            margin-left: 200px; /* Adjust based on sidebar width */
+            padding-top: 140px; /* Ensure space for the header */
+        }
+
+        .text{
+            display: flex;
+            flex-wrap: wrap;
+            color: black;
+            font-size: 10px; /* Adjust the font size as needed */
+            font-family: "Verdana", Times, serif;
+            margin-top: -55px; /* Adjust the top margin */
+            justify-content: center;
+        }
+
+        .text h1{
+            color: black; /* color of "delette a member heading" */
+        }
+
+        .bottom-left {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 3; /* Ensure the button appears on top of the sidebar */
+        }
+
+        .search-container {
+            text-align: center; /* Center align the content within this container */
+        }
+
+        .search-box {
+            border-radius: 20px; /* Rounded border shape */
+            padding: 6px;
+            font-size: 12px;
+            border: 1px solid #ccc;
+            width: 300px; /* Adjust width as needed */
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+
+        .deleteform {
+            align-content: center;
+            justify-content: center;
+            margin-top: 20px;
+            text-align: center;
+        }       
+
+        
+
+        /* Media Queries for responsiveness */
+    @media only screen and (max-width: 768px) {
+    header {
+        font-size: 5vw; /* Adjusted font size for smaller screens */
+    }
+    
+    .dropdown {
+        font-size: 2vw; /* Adjusted font size for smaller screens */
+    }
+
+    .sidebar {
+        width: 30%; /* Adjusted width for smaller screens */
+    }
+
+    .main-content {
+        margin-left: 30%; /* Adjusted margin for smaller screens */
+    }
+
+    .text {
+        font-size: 3vw; /* Adjusted font size for smaller screens */
+        margin-top: 3vw; /* Adjusted margin top for smaller screens */
+    }
+
+    .bottom-left {
+        bottom: 3vw; /* Adjusted bottom margin for smaller screens */
+        left: 3vw; /* Adjusted left margin for smaller screens */
+    }
+
+    .deleteform {
+        margin-top: 3vw; /* Adjusted top margin for smaller screens */
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        border-radius: 3vw; /* Adjusted border radius for smaller screens */
+        padding: 2vw; /* Adjusted padding for smaller screens */
+        font-size: 2.5vw; /* Adjusted font size for smaller screens */
+        width: 90%; /* Adjusted width for smaller screens */
+        margin-bottom: 3vw; /* Adjusted margin for smaller screens */
+    }
+    }
+
+    .search-box {
+        border-radius: 20px; /* Rounded border shape */
+        padding: 5 10px;
+        font-size: 15px;
+        border: 1px solid #ccc;
+        width: 300px; /* Adjust width as needed */
+        display: inline-block;
+        margin-top: 2px;
+        margin-bottom: 10px;
+    }
+
+    .deleteform {
+        align-content: center;
+        justify-content: center;
+        margin-top: 0px;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+
+    table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px; /* Adjust margin-top to bring down the table */
+        }
+    
+        th, td{
+            border: 1px solid #dddddd;
+            text-align: center;
+            padding: 8px;
+        }
+
+        td {
+            cursor: pointer;
+            background-color: #76ABAE;
+        }
+
+        
+
+      table thead {
+            background-color: #31363F; /* Light blue background color */
+            color: #EEEEEE;   
+        }
+
+    body{
+        background-color: #EEEEEE;
+    }
+       
+   
+        /* Styling for website name */
+.website-name {
+    font-size: 36px; /* Adjust the font size as needed */
+    color: #76ABAE; /* Use the website name color */
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+}
+
+/* Styling for company name */
+.company-name {
+    font-size: 20px; /* Adjust the font size as needed */
+    color: #76ABAE; /* Use the company name color */
+    font-family: Arial, sans-serif;
+}
+
+.item {
+    margin-right: 40px; /* Change the value to your desired spacing */
+}
+
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="website-name item">SchedSpace</div>
+        <div class="company-name item">Company Name</div>
+        <div class="dropdown item">Username</div>
+    </header>
+
+    <div class="sidebar">
+        <ul>
+            <li>Home</li>
+            <li>Upload Project</li>
+            <li>Update Task</li>
+            <li>View Projects</li>
+            <li>Add Member</li>
+            <li>Delete Member</li>
+        </ul>
+    </div>
+
+   
+    <div class="main-content">
+       <div class="text">
+        <h1>Delete a Member</h1>
+       </div>
+        <div class="bottom-left">
+            <button id="logoutButton">Logout</button>
+        </div>
+
+        <div class="deleteform">
+            <div class="search-container">
+                <input type="text" name="search" class="search-box" placeholder="Search Employee Name/Email...">
+            </div>
+        </div>
+        
+        <form method="post" id = "myForm">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Employee ID</th>
+                        <th>Employee Name</th>
+                        <th>Employee Email</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="dataTable">
+                    <tr>
+                    <td contenteditable="true" id="1stcol_1" rowspan="1"><input type="number" name="Id" value=""></td>
+                        <td contenteditable="true" id="2ndcol_1" rowspan="1">   <input type="text" name="Sname" value=""> </td>
+                        <td contenteditable="true" id="3rdcol_1" rowspan="1">   <input type="text" name="Semail"  > </td>
+                        <td><button class = "button" id = "deleterow">Delete</button>
+                    </td>
+                    </tr>              
+                </tbody>
+                
+            </table>
+        </form>
+        
+
+    <script>
+             // Logout functionality
+       document.getElementById("logoutButton").addEventListener("click", function() {
+           // Implement your logout logic here
+           alert("Logout clicked. Implement your logout logic here.");
+       });
+    </script>
+    </div>
+</body>
+</html>
