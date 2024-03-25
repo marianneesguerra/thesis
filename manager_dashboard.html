@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SchedSpace | Manager Dashboard</title>
+    <link rel="shortcut icon" href="calendar-week-fill.svg" type="image/x-icon">
+    <style>
+        /* Styling for header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #31363F;
+            z-index: 2; /* Ensures header is on top of sidebar */
+            font-size: 56px;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            color: #76ABAE;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #EEEEEE;
+            position: relative; /* Set body position to relative for absolute positioning */
+        }
+
+
+        /* Styling for user dropdown */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            font-size: 20px;
+            color: white;
+            font-family: Arial, sans-serif;
+            font-weight: 50;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #76ABAE;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            font-size: 16px;
+        }
+        
+        
+        /* Styling for sidebar */
+        .sb-menu {
+            height: 32px;
+            margin-top: 5px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .sb-menu:hover {
+            background-color: #76ABAE;
+            border: #555;
+            border-radius: 5px;
+            box-shadow: 0 1.5px 5px rgba(0, 0, 0, .5);
+        }
+
+        .sb-menu-but{
+            height: 32px;
+            width: 32px;
+        }
+
+        .sidebar {
+            width: 200px;  
+            height: 100%;
+            background-color: #333;
+            color: #fff;
+            margin-top: 80px;
+            padding-top: 20px;
+            position: fixed;
+            z-index: 1; /* Ensure sidebar is behind the header */
+            transition: .1s;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .sidebar-close{
+            width: 0;
+            overflow-x: hidden;
+            transition: .1s;
+        }
+
+        .sidebar-close + .main-content {
+            margin-left: 0;
+        }
+        
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .sidebar ul li {
+            padding: 10px 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-start;
+        }
+        
+        .sidebar ul li:hover {
+            background-color: #555;
+        }
+
+        .sb-icon{
+            padding-right: 15px;
+        }
+        
+        /* Main content area */
+        .main-content {
+            margin-left: 200px; /* Adjust based on sidebar width */
+            padding-top: 140px; /* Ensure space for the header */
+        }
+
+        .this-month {
+            position: absolute;
+            top: 130px;
+            margin-left: 20px;
+            padding: 10px 20px;
+            background-color: #faf6f6;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .bottom-right {
+            position: absolute;
+            bottom: -530px;
+            right: 20px;
+            font-size: 18px;
+            color: #555;
+        }
+
+        .bottom-left {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        z-index: 3; /* Ensure the button appears on top of the sidebar */
+        }
+
+        /* Styling for website name */
+.website-name {
+    font-size: 36px; /* Adjust the font size as needed */
+    color: #76ABAE; /* Use the website name color */
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    /* Format SB button with website-name*/
+    display: flex;
+}
+
+/* Styling for company name */
+.company-name {
+    font-size: 20px; /* Adjust the font size as needed */
+    color: #76ABAE; /* Use the company name color */
+    font-family: Arial, sans-serif;
+}
+
+.item {
+    margin-right: 40px; /* Change the value to your desired spacing */
+}
+
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="website-name item">
+            <div class="sb-menu">
+                <img id="toggleButton" class="sb-menu-but" onclick="toggleSideBar()" src="icons8-menu-32.png" alt="Menu">
+            </div>
+            SchedSpace
+        </div>
+        <div class="company-name item">Company Name</div>
+        <div class="dropdown item">Username</div>
+    </header>
+    
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <ul>
+            <li><img class="sb-icon" src="icons8-home-24.png">Home</li>
+            <li><img class="sb-icon" src="icons8-upload-22.png">Upload Project</li>
+            <li><img class="sb-icon" src="icons8-update-20.png">Update Task</li>
+            <li><img class="sb-icon" src="icons8-view-22.png">View Projects</li>
+            <li><img class="sb-icon" src="icons8-add-24.png">Add Member</li>
+            <li><img class="sb-icon" src="icons8-delete-22.png">Delete Member</li>
+        </ul>
+    </div>
+
+    <!-- Main content area -->
+    <div class="main-content">
+        <!-- Content goes here -->
+        <div class="this-month">This Month</div>
+        <!-- Date at bottom right -->
+        <div class="bottom-right">
+                Today is: <span id="currentDate"></span>
+            </div>
+            <div class="bottom-left">
+                <button id="logoutButton">Logout</button>
+            </div>
+            <!-- JavaScript to display the current date -->
+            <script>
+               // Get the current date
+        var currentDate = new Date();
+            // Format the date as "Month Day, Year"
+        var formattedDate = currentDate.toLocaleDateString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+        });
+        // Display the formatted date
+            document.getElementById("currentDate").innerHTML = formattedDate;
+
+        // Slidebar mechanism
+            function toggleSideBar(){
+                const sidebar = document.getElementById("sidebar");
+                sidebar.classList.toggle("sidebar-close");
+            }
+
+        // Logout functionality
+            document.getElementById("logoutButton").addEventListener("click", function() {
+                // Implement your logout logic here
+                alert("Logout clicked. Implement your logout logic here.");
+            });
+            </script>
+        </div>
+    </div>
+</body>
+</html>
